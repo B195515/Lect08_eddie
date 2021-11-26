@@ -1,0 +1,95 @@
+Eddie	each computer is a node
+
+Cores	processing unit in the computer - eddie has ~8000 (16-40 per node)
+
+RAM	Each eddie node has from 64GB-3TB
+
+Gridenginge	system that organizes/queues the usage requests to maximize resource use
+
+Scientific linux
+
+IGMM	Inst of Genetics and Cancer
+
+Roslin Institute	
+
+Memory per core	Total memory/ number of core x 2
+
+Advantages	computational time and memory
+	parallelization
+	task division
+	large storage memory (chunks rather than importing smaller portions)
+
+
+
+
+Workflow	submit/head/login node
+
+submit jobs by queue
+	(qsub)
+interactive work in a node
+	(qlogin) - small tasks, testing
+administrative work, checking 
+	(qstat)
+
+## "scratch" space
+	20-50TB not backed up, 2TB per person, files deleted after a month
+	/exports/eddie/scratch/s2255686/
+	copy dataset to scratch space
+	complete your analysis
+	copy your results elsewhere
+
+
+## Moving data from bioinfmsc5/7 to Eddie
+	scp [file to copy] [destination]
+	MUST BE DONE FROM WITHIN BIOINFMSC SERVER
+
+to	scp file1 s2255686@eddie.ecdf.ed.ac.uk:/home/s2255686
+to	scp file1 s2255686@eddie.ecdf.ed.ac.uk:/exports/eddie/scratch/s2255686/
+from	scp s2255686@eddie.ecdf.ed.ac.uk:/exports/eddie/scratch/s2255686/file1 ./
+dir	scp -r folder1/ s2255686@eddie.ecdf.ed.ac.uk:/home/s2255686
+
+	MOVING WITHIN EDDIE to elsewhere
+from	scp /localdisk/data/BPSM/Lecture09/Test_dataset.fa s2255686@eddie.ecdf.ed.ac.uk:/home/s2255686
+
+
+
+
+## Interactive sessions
+start
+	(qlogin)
+stopping session
+	(exit)
+indicate what you need
+	qlogin -pe sharedmem<NUMBEROFCORES> -l h_vmem=<MEMORYPERCORE>
+move from eddie to elsewhere
+	qlogin -q staging
+	use (cp) or (mv) as usual
+usual workflows...
+	stage data from elsewhere to Eddie > analyse data on Eddie > stage results back to elsewhere
+within scripts
+	can stage from within scripts allows for automation and make staging be part of the program
+see cluster activity
+	(top)
+	(module load htop)	(htop)
+sourcing script
+	(source) OR (.)
+login node - simple work only!!
+submit a job
+	qsub
+check jobs
+	qstat
+kill a job 
+	qdel [job id or job name]
+get info on job
+	qcct -j [jobnumber]
+GET HELP
+	man qsub
+
+
+
+to break up a file
+	split
+
+
+
+
